@@ -1,9 +1,10 @@
 package com.twosixlabs.dart.auth.user.stores
 
+import annotations.IntegrationTest
 import com.twosixlabs.dart.auth.keycloak.KeycloakAdminClient
 import com.twosixlabs.dart.auth.tenant.indices.KeycloakCorpusTenantIndex
 import com.twosixlabs.dart.auth.user.DartUserStoreTest
-import com.twosixlabs.dart.test.tags.annotations.IntegrationTest
+import org.scalatest.Ignore
 
 object KeycloakContainer {
     val keycloakAdminClient = KeycloakAdminClient(
@@ -18,6 +19,7 @@ object KeycloakContainer {
 }
 
 @IntegrationTest
+@Ignore
 class KeycloakUserStoreTest extends DartUserStoreTest(
     KeycloakUserStore( KeycloakContainer.keycloakAdminClient ),
     KeycloakCorpusTenantIndex( KeycloakContainer.keycloakAdminClient ),

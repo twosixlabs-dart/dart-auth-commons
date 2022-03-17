@@ -1,12 +1,13 @@
 package com.twosixlabs.dart.auth.tenant.indices
 
+import annotations.IntegrationTest
 import com.arangodb.async.ArangoCollectionAsync
 import com.twosixlabs.dart.arangodb.{Arango, ArangoConf}
 import com.twosixlabs.dart.auth.tenant.CorpusTenantIndexTest
-import com.twosixlabs.dart.test.tags.annotations.IntegrationTest
-import org.scalatest.BeforeAndAfterAll
+import org.scalatest.{BeforeAndAfterAll, Ignore}
 
 @IntegrationTest
+@Ignore
 class ArangoCorpusTenantIndexTest extends CorpusTenantIndexTest(
     ArangoCorpusTenantIndex(
         ArangoConf(
