@@ -69,15 +69,19 @@ lazy val root = ( project in file( "." ) )
   )
 
 lazy val core = ( crossProject(JSPlatform, JVMPlatform) in file( "modules/core" ) )
-  .configs( WipConfig, IntegrationConfig )
-  .settings( commonSettings )
-  .jvmSettings(
-      commonJvmSettings,
-  )
-  .jsSettings(
-      commonJsSettings,
-      libraryDependencies ++= dartExceptions,
-  )
+    .configs( WipConfig, IntegrationConfig )
+    .settings(
+        commonSettings,
+        publishArtifact in (Test, packageBin) := true,
+        publishArtifact in (Test, packageSrc) := true,
+        )
+    .jvmSettings(
+        commonJvmSettings,
+        )
+    .jsSettings(
+        commonJsSettings,
+        libraryDependencies ++= dartExceptions,
+        )
 
 lazy val controllers = ( project in file( "modules/controllers" ) )
   .configs( WipConfig, IntegrationConfig )
