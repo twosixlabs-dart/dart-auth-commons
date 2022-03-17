@@ -7,8 +7,8 @@ object Dependencies {
     val typesafeConfigVersion = "1.4.1"
     val slf4jVersion = "1.7.20"
     val logbackVersion = "1.2.3"
-    val dartCommonsVersion = "3.0.290"
-    val cdr4sVersion = "3.0.258"
+    val dartCommonsVersion = "3.0.30"
+    val cdr4sVersion = "3.0.9"
     val scalaTestVersion = "3.2.9"
     val scalaMockVersion = "5.1.0"
     val scalatraVersion = "2.5.4"
@@ -16,8 +16,7 @@ object Dependencies {
     val jacksonOverrideVersion = "2.9.10"
     val jwtScalaVersion = "5.0.0"
     val scalaRbacVersion = "1.1.0"
-    val dartCassandraVersion = "3.0.52"
-    val arangoDatastoreRepoVersion = "3.0.24"
+    val arangoDatastoreRepoVersion = "3.0.8"
     val betterFilesVersion = "3.8.0"
     val keycloak4sVersion = "2.4.1"
     val akkaMonixTaskVersion = "1.5.0"
@@ -50,7 +49,6 @@ object Dependencies {
     val scalaRbac = Def.setting( Seq( "io.github.johnhungerford.rbac" %%% "scala-rbac-core" % scalaRbacVersion,
                                  "io.github.johnhungerford.rbac" %% "scala-rbac-scalatra" % scalaRbacVersion ) )
 
-    val dartCassandra = Seq( "com.twosixlabs.dart" %% "dart-cassandra-datastore" % dartCassandraVersion )
     val arangoDatastoreRepo = Seq( "com.twosixlabs.dart" %% "dart-arangodb-datastore" % arangoDatastoreRepoVersion )
 
     val keycloak4s = Seq( "com.fullfacing" %% "keycloak4s-core" % keycloak4sVersion,

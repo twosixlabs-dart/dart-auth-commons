@@ -16,7 +16,7 @@ jobs:
         run: sbt test
 
   publish-to-sonatype:
-    if: ${{ github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags/v') }}
+    if: ${{ github.ref == 'refs/heads/DART-1314-adding-github-workflow' || startsWith(github.ref, 'refs/tags/v') }}
     needs: build
     runs-on: ubuntu-latest
     steps:
@@ -35,7 +35,7 @@ jobs:
           SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
 
   tag-release:
-    if: ${{ github.ref == 'refs/heads/master' }}
+    if: ${{ github.ref == 'refs/heads/DART-1314-adding-github-workflow' }}
     needs: build
     runs-on: ubuntu-latest
     steps:
