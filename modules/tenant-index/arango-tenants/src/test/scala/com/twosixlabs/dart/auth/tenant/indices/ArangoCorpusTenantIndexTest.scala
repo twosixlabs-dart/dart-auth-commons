@@ -7,7 +7,6 @@ import com.twosixlabs.dart.auth.tenant.CorpusTenantIndexTest
 import org.scalatest.{BeforeAndAfterAll, Ignore}
 
 @IntegrationTest
-@Ignore
 class ArangoCorpusTenantIndexTest extends CorpusTenantIndexTest(
     ArangoCorpusTenantIndex(
         ArangoConf(

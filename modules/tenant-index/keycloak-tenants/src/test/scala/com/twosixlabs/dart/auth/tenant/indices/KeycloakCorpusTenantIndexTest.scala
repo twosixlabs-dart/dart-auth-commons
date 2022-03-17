@@ -13,7 +13,6 @@ import scala.concurrent.{Await, ExecutionContext, Future}
 import scala.util.{Failure, Success, Try}
 
 @IntegrationTest
-@Ignore
 class KeycloakCorpusTenantIndexTest
   extends AnyFlatSpecLike
     with Matchers

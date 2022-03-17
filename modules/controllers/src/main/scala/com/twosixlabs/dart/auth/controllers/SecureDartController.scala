@@ -61,7 +61,6 @@ object SecureDartController {
         Try( config.getString( "dart.auth.secret" ) ).toOption,
         Try( ! config.getBoolean( "dart.auth.bypass") ).getOrElse( true ),
         Try( config.getString( "dart.auth.basic.credentials" ) )
-          .logged
           .orElse( Try( System.getenv( "DART_AUTH_BASIC_CREDENTIALS" ) ) )
           .map( _.split( "," )
                   .map( v => v.trim )
