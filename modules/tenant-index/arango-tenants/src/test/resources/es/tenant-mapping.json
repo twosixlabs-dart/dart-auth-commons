@@ -1,0 +1,10 @@
+{
+  "mappings": {
+    "dynamic": false,
+    "properties": {
+      "tenant_id": {
+        "type": "keyword"
+      }
+    }
+  }
+}
