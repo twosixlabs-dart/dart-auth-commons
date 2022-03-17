@@ -142,6 +142,7 @@ lazy val keycloakUsers = ( project in file( "modules/user-store/keycloak-users" 
 
 sonatypeProfileName := "com.twosixlabs"
 inThisBuild(List(
+    publishArtifact.in(Test) := true,
     organization := "com.twosixlabs.dart.auth",
     homepage := Some(url("https://github.com/twosixlabs-dart/dart-auth-commons")),
     licenses := List("GNU-Affero-3.0" -> url("https://www.gnu.org/licenses/agpl-3.0.en.html")),
