@@ -1,7 +1,7 @@
 # Dart Auth Commons
 
-Libraries used throughout DART for authentication and authorization
-
+Libraries used throughout DART for authentication and authorization  
+[![build and publish](https://github.com/twosixlabs-dart/dart-auth-commons/actions/workflows/build-and-publish.yml/badge.svg)](https://github.com/twosixlabs-dart/dart-auth-commons/actions/workflows/build-and-publish.yml)
 
 ## Dependencies
 
@@ -46,7 +46,6 @@ to scala.js which generates the project ids `coreJS` and `coreJVM`.
 sbt coreJVM/compile
 sbt coreJS/test
 sbt keycloakCommon/publishLocal
-sbt cassandraTenants/publish
 ```
 
 ## Project structure
@@ -66,9 +65,8 @@ root
  |     |
  |     |-- arrango-tenants
  |     |
- |     |-- cassandra-tenants
- |     |
- |      -- keycloak-tenants
+ |     |-- keycloak-tenants
+ |      
  |
  |-- user-store
        |
@@ -83,6 +81,6 @@ which automatically handle authentication and contain utilities for enforcing au
 certain operations. 
 3. `keycloak-common` contains a keycloak admin client
 4. `tenant-index` contains service implementations for reading and writing tenant data 
-in cassandra (deprecated), arrango-db (now canonical), and keycloak
+in arrango-db (now canonical), and keycloak
 5. `user-store` contains service implementations for reading and writing user data. This is 
 currently in keycloak only.

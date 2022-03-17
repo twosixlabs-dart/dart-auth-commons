@@ -1,10 +1,10 @@
 package com.twosixlabs.dart.auth.tenant.indices
 
+import annotations.IntegrationTest
 import com.twosixlabs.dart.auth.keycloak.KeycloakAdminClient
 import com.twosixlabs.dart.auth.tenant.CorpusTenant
 import com.twosixlabs.dart.auth.tenant.CorpusTenantIndex.{InvalidTenantIdException, TenantAlreadyExistsException, TenantNotFoundException}
-import com.twosixlabs.dart.test.tags.annotations.IntegrationTest
-import org.scalatest.BeforeAndAfterEach
+import org.scalatest.{BeforeAndAfterEach, Ignore}
 import org.scalatest.flatspec.AnyFlatSpecLike
 import org.scalatest.matchers.should.Matchers
 

@@ -33,9 +33,9 @@ lazy val commonSettings : Seq[ Def.Setting[ _ ] ] = {
         scalaVersion in ThisBuild := "2.12.13",
         resolvers in ThisBuild ++= Seq(
             "Maven Central" at "https://repo1.maven.org/maven2/",
-//            "Sonatype snapshots" at "https://s01.oss.sonatype.org/content/repositories/snapshots/",
             "JCenter" at "https://jcenter.bintray.com",
             "Local Ivy Repository" at s"file://${System.getProperty( "user.home" )}/.ivy2/local/default"
+
         ),
         libraryDependencies ++= Seq(
             scalaTest.value,
@@ -43,28 +43,18 @@ lazy val commonSettings : Seq[ Def.Setting[ _ ] ] = {
             scalaRbac.value,
         ).flatten,
         // `sbt test` should skip tests tagged IntegrationTest
-        Test / testOptions := Seq( Tests.Argument( "-l", "com.twosixlabs.dart.test.tags.annotations.IntegrationTest" ) ),
+        Test / testOptions := Seq( Tests.Argument( "-l", "annotations.IntegrationTest" ) ),
         // `sbt integration:test` should run only tests tagged IntegrationTest
         IntegrationConfig / parallelExecution := false,
-        IntegrationConfig / testOptions := Seq( Tests.Argument( "-n", "com.twosixlabs.dart.test.tags.annotations.IntegrationTest" ) ),
+        IntegrationConfig / testOptions := Seq( Tests.Argument( "-n", "annotations.IntegrationTest" ) ),
         // `sbt wip:test` should run only tests tagged WipTest
-        WipConfig / testOptions := Seq( Tests.Argument( "-n", "com.twosixlabs.dart.test.tags.annotations.WipTest" ) ),
+        WipConfig / testOptions := Seq( Tests.Argument( "-n", "annotations.WipTest" ) ),
     )
 }
 
-val publishSettings = Seq(
-    publishTo := {
-	// TODO
-	None
-    },
-    publishArtifact in (Test, packageBin) := true,
-    publishArtifact in (Test, packageSrc) := true,
-    publishMavenStyle := true
-)
-
-val disablePublish = Seq(
-    publish := {}
-)
+lazy val disablePublish = Seq(
+    skip.in( publish ) := true,
+    )
 
 lazy val root = ( project in file( "." ) )
   .settings( name := "dart-auth-commons", disablePublish )
@@ -73,7 +63,6 @@ lazy val root = ( project in file( "." ) )
       core.projects( JVMPlatform ),
       controllers,
       keycloakTenants,
-      cassandraTenants,
       arangoTenants,
       keycloakUsers,
       keycloakCommon,
@@ -84,12 +73,10 @@ lazy val core = ( crossProject(JSPlatform, JVMPlatform) in file( "modules/core" 
   .settings( commonSettings )
   .jvmSettings(
       commonJvmSettings,
-      publishSettings,
   )
   .jsSettings(
       commonJsSettings,
       libraryDependencies ++= dartExceptions,
-      publishSettings,
   )
 
 lazy val controllers = ( project in file( "modules/controllers" ) )
@@ -98,7 +85,6 @@ lazy val controllers = ( project in file( "modules/controllers" ) )
   .settings(
       commonSettings,
       commonJvmSettings,
-      publishSettings,
       libraryDependencies ++= Seq(
           scalaJwt,
           scalatra,
@@ -111,7 +97,6 @@ lazy val keycloakCommon = ( project in file( "modules/keycloak-common" ) )
       name := "keycloak-common",
       commonSettings,
       commonJvmSettings,
-      publishSettings,
       libraryDependencies ++= Seq(
           keycloak4s,
       ).flatten,
@@ -124,21 +109,8 @@ lazy val keycloakTenants = ( project in file( "modules/tenant-index/keycloak-ten
       name := "keycloak-tenants",
       commonSettings,
       commonJvmSettings,
-      publishSettings,
       libraryDependencies ++= Seq(
           keycloak4s,
-      ).flatten,
-  )
-
-lazy val cassandraTenants = ( project in file( "modules/tenant-index/cassandra-tenants" ) )
-  .configs( WipConfig, IntegrationConfig )
-  .dependsOn( core.projects( JVMPlatform ) % "compile->compile;test->test" )
-  .settings(
-      commonSettings,
-      commonJvmSettings,
-      publishSettings,
-      libraryDependencies ++= Seq(
-          dartCassandra,
       ).flatten,
   )
 
@@ -148,7 +120,6 @@ lazy val arangoTenants = ( project in file( "modules/tenant-index/arango-tenants
   .settings(
       commonSettings,
       commonJvmSettings,
-      publishSettings,
       libraryDependencies ++= Seq(
           arangoDatastoreRepo,
       ).flatten,
@@ -160,11 +131,26 @@ lazy val keycloakUsers = ( project in file( "modules/user-store/keycloak-users" 
   .settings(
       commonSettings,
       commonJvmSettings,
-      publishSettings,
       libraryDependencies ++= Seq(
           keycloak4s,
       ).flatten,
   )
 
+sonatypeProfileName := "com.twosixlabs"
+inThisBuild(List(
+    organization := "com.twosixlabs.dart.auth",
+    homepage := Some(url("https://github.com/twosixlabs-dart/dart-auth-commons")),
+    licenses := List("GNU-Affero-3.0" -> url("https://www.gnu.org/licenses/agpl-3.0.en.html")),
+    developers := List(
+        Developer(
+            "twosixlabs-dart",
+            "Two Six Technologies",
+            "",
+            url("https://github.com/twosixlabs-dart")
+            )
+        )
+    ))
 
+ThisBuild / sonatypeCredentialHost := "s01.oss.sonatype.org"
+ThisBuild / sonatypeRepository := "https://s01.oss.sonatype.org/service/local"
 
