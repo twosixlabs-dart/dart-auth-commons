@@ -34,6 +34,10 @@ object DartOperations {
         def on( tenant : DartTenant ) : TenantOperation = TenantOperation( tenant, this )
     }
 
+    case object ViewTenant extends OperationOnTenant {
+        def apply( tenant : DartTenant ) : TenantOperation = on( tenant )
+    }
+
     case object AddDocument extends OperationOnTenant {
         def to( tenant : DartTenant ) : TenantOperation = on( tenant )
     }
