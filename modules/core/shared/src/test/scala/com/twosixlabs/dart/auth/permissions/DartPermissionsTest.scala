@@ -23,7 +23,8 @@ class DartPermissionsTest extends AnyFlatSpecLike with Matchers {
     val readOnlyGroup : TenantGroup = TenantGroup( testTenant, ReadOnly )
     val readOnlyGroupPermissions : Permission = DartPermissions.getPermissionsFromGroup( readOnlyGroup )
 
-    it should "be able to perform any OperationOnTenent other than write type TenantManagementOperation on the test tenant" in {
+    it should "be able to perform any OperationOnTenant other than write type TenantManagementOperation on the test tenant" in {
+        leaderGroupPermissions.permits( TenantOperation( testTenant, ViewTenant ) ) shouldBe true
         leaderGroupPermissions.permits( TenantOperation( testTenant, AddDocument ) ) shouldBe true
         leaderGroupPermissions.permits( TenantOperation( testTenant, RemoveDocument ) ) shouldBe true
         leaderGroupPermissions.permits( TenantOperation( testTenant, RetrieveDocument ) ) shouldBe true
@@ -38,6 +39,7 @@ class DartPermissionsTest extends AnyFlatSpecLike with Matchers {
     }
 
     it should "not be able to perform any OperationOnTenant on the global corpus" in {
+        leaderGroupPermissions.permits( TenantOperation( GlobalCorpus, ViewTenant ) ) shouldBe false
         leaderGroupPermissions.permits( TenantOperation( GlobalCorpus, AddDocument ) ) shouldBe false
         leaderGroupPermissions.permits( TenantOperation( GlobalCorpus, RemoveDocument ) ) shouldBe false
         leaderGroupPermissions.permits( TenantOperation( GlobalCorpus, RetrieveDocument ) ) shouldBe false
@@ -90,7 +92,8 @@ class DartPermissionsTest extends AnyFlatSpecLike with Matchers {
 
     behavior of "DartPermissions: TenantGroup with TenantRole of Member"
 
-    it should "be able to perform any OperationOnTenent other than write type TenantManagementOperation on the test tenant" in {
+    it should "be able to perform any OperationOnTenant other than write type TenantManagementOperation on the test tenant" in {
+        leaderGroupPermissions.permits( TenantOperation( testTenant, ViewTenant ) ) shouldBe true
         memberGroupPermissions.permits( TenantOperation( testTenant, AddDocument ) ) shouldBe true
         memberGroupPermissions.permits( TenantOperation( testTenant, RemoveDocument ) ) shouldBe true
         memberGroupPermissions.permits( TenantOperation( testTenant, RetrieveDocument ) ) shouldBe true
@@ -105,6 +108,7 @@ class DartPermissionsTest extends AnyFlatSpecLike with Matchers {
     }
 
     it should "not be able to perform any OperationOnTenant on the global corpus" in {
+        memberGroupPermissions.permits( TenantOperation( GlobalCorpus, ViewTenant ) ) shouldBe false
         memberGroupPermissions.permits( TenantOperation( GlobalCorpus, AddDocument ) ) shouldBe false
         memberGroupPermissions.permits( TenantOperation( GlobalCorpus, RemoveDocument ) ) shouldBe false
         memberGroupPermissions.permits( TenantOperation( GlobalCorpus, RetrieveDocument ) ) shouldBe false
@@ -157,7 +161,8 @@ class DartPermissionsTest extends AnyFlatSpecLike with Matchers {
 
     behavior of "DartPermissions: TenantGroup with TenantRole of ReadOnly"
 
-    it should "be able to perform SearchCorpus, RetrieveDocument, and RetrieveTenant on the test tenant" in {
+    it should "be able to perform ViewTenant, SearchCorpus, RetrieveDocument, and RetrieveTenant on the test tenant" in {
+        readOnlyGroupPermissions.permits( TenantOperation( testTenant, ViewTenant ) ) shouldBe true
         readOnlyGroupPermissions.permits( TenantOperation( testTenant, RetrieveDocument ) ) shouldBe true
         readOnlyGroupPermissions.permits( TenantOperation( testTenant, SearchCorpus ) ) shouldBe true
         readOnlyGroupPermissions.permits( TenantOperation( testTenant, RetrieveTenant ) ) shouldBe true
@@ -172,6 +177,7 @@ class DartPermissionsTest extends AnyFlatSpecLike with Matchers {
     }
 
     it should "not be able to perform any OperationOnTenant on the global corpus" in {
+        readOnlyGroupPermissions.permits( TenantOperation( GlobalCorpus, ViewTenant ) ) shouldBe false
         readOnlyGroupPermissions.permits( TenantOperation( GlobalCorpus, AddDocument ) ) shouldBe false
         readOnlyGroupPermissions.permits( TenantOperation( GlobalCorpus, RemoveDocument ) ) shouldBe false
         readOnlyGroupPermissions.permits( TenantOperation( GlobalCorpus, RetrieveDocument ) ) shouldBe false

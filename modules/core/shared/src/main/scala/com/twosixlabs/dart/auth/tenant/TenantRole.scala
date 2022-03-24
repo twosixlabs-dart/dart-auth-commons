@@ -11,7 +11,7 @@ sealed trait TenantRole {
 
 case object Leader extends TenantRole {
     override val permittedOperations : Set[ OperationOnTenant ] = Set(
-        AddDocument, RemoveDocument, RetrieveDocument, UpdateDocument, SearchCorpus, RetrieveTenant
+        ViewTenant, AddDocument, RemoveDocument, RetrieveDocument, UpdateDocument, SearchCorpus, RetrieveTenant
     )
 
     override def toString : String = "leader"
@@ -19,7 +19,7 @@ case object Leader extends TenantRole {
 
 case object Member extends TenantRole {
     override val permittedOperations : Set[ OperationOnTenant ] = Set(
-        AddDocument, RemoveDocument, RetrieveDocument, UpdateDocument, SearchCorpus, RetrieveTenant
+        ViewTenant, AddDocument, RemoveDocument, RetrieveDocument, UpdateDocument, SearchCorpus, RetrieveTenant
     )
 
     override def toString : String = "member"
@@ -27,7 +27,7 @@ case object Member extends TenantRole {
 
 case object ReadOnly extends TenantRole {
     override val permittedOperations : Set[ OperationOnTenant ] = Set(
-        RetrieveDocument, SearchCorpus, RetrieveTenant
+        ViewTenant, RetrieveDocument, SearchCorpus, RetrieveTenant
     )
 
     override def toString : String = "read-only"
