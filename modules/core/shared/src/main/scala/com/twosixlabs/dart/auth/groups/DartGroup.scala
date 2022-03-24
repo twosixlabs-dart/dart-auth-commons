@@ -12,7 +12,7 @@ case object ProgramManager extends DartGroup {
 
 case class TenantGroup( tenant : DartTenant, tenantRole : TenantRole ) extends DartGroup {
     lazy val tenantSlug : String = tenant match {
-        case GlobalCorpus => "global"
+        case GlobalCorpus => DartTenant.globalId
         case ct : CorpusTenant => ct.id
     }
     override def toString : String = s"$tenantSlug/$tenantRole"
